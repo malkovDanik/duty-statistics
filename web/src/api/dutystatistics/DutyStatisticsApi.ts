@@ -3,6 +3,7 @@ import { AbstractApi } from '@/api/AbstractApi';
 import { dataToArrayClass } from '@/api/ClassFactory';
 import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
 import RequestUrl from '@/api/requestUrl';
+import { SubClassCountStatisticDTO } from '@/models/SubClassCountStatisticDTO';
 
 @RequestUrl('dutyStatistics')
 class DutyStatisticsApi extends AbstractApi {
@@ -43,6 +44,27 @@ class DutyStatisticsApi extends AbstractApi {
         }).then(
             (response: AxiosResponse): SurfacingStatisticDTO[] =>
                 dataToArrayClass(SurfacingStatisticDTO, response.data)
+        );
+    }
+
+    /**
+     * 1) График с количеством подклассов
+     *
+     * @param startDate начало периода
+     * @param endDate   конец периожа
+     */
+    public getSubClassCountStatistic(
+        startDate: Date,
+        endDate: Date
+    ): Promise<SubClassCountStatisticDTO[]> {
+        return this.get('/subClassCount', {
+            params: {
+                startDate,
+                endDate,
+            },
+        }).then(
+            (response: AxiosResponse): SubClassCountStatisticDTO[] =>
+                dataToArrayClass(SubClassCountStatisticDTO, response.data)
         );
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <el-card class="box-card">
-        <div>Графики</div>
+        <subclass-chart :chartData="subclassChart" />
     </el-card>
 </template>
 
@@ -10,5 +10,11 @@
 .box-card {
     width: 100%;
     height: 100%;
+    ::v-deep {
+        .el-card__body {
+            height: 100%;
+            box-sizing: border-box;
+        }
+    }
 }
 </style>
