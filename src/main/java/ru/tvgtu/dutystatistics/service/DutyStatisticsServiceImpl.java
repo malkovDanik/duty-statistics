@@ -9,6 +9,7 @@ import ru.tvgtu.dutystatistics.web.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Сервис по работе с аналитикой по дежурствам
@@ -92,6 +93,16 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
             endDate = LocalDateTime.now();
         }
 
+        return null;
+    }
+
+    @Override
+    public List<SurfacingStatisticDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate) {
+        return null;
+    }
+
+    @Override
+    public List<SurfacingStatisticDTO> getDutyObjectRoutes(LocalDateTime startDate, LocalDateTime endDate, UUID dutyObjectId) {
         return null;
     }
 }

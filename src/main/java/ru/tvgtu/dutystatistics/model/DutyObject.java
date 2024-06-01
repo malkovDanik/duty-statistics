@@ -26,7 +26,7 @@ public class DutyObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @NotNull
     @OneToOne

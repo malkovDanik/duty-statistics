@@ -4,6 +4,7 @@ import ru.tvgtu.dutystatistics.web.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public interface DutyStatisticsService {
     List<SubClassCountStatisticDTO> getSubClassCountStatistic(LocalDateTime startDate, LocalDateTime endDate);
@@ -17,4 +18,9 @@ public interface DutyStatisticsService {
     List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
 
     List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<SurfacingStatisticDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<SurfacingStatisticDTO> getDutyObjectRoutes(LocalDateTime startDate, LocalDateTime endDate, UUID dutyObjectId);
+
 }

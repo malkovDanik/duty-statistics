@@ -22,7 +22,7 @@ public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     /**
      * Наименование объекта
