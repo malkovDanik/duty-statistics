@@ -1,0 +1,31 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "jest": true
+    },
+    "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:vue/essential",
+        "@vue/prettier",
+        "@vue/typescript"
+    ],
+    "rules": {
+        "no-undef": "off",
+        "@typescript-eslint/explicit-function-return-type": ["warning"],
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/camelcase": "off",
+        "no-unused-vars": "off",
+        "no-irregular-whitespace": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-non-undefined-assertion": "off"
+    }
+}
