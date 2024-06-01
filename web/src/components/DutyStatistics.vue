@@ -22,9 +22,12 @@
             </div>
             <div style="display: flex; flex: 1; margin-top: 10px">
                 <ships-table :ships="ships" @selectShip="selectShip" />
-                <route-table :selectedShip="selectedShip" style="margin-left: 20px" />
+                <route-table
+                    :selectedShip="selectedShip"
+                    style="margin-left: 20px"
+                />
             </div>
-            <graphs style="flex: 1; margin-top: 10px" />
+            <graphs :period="period" style="flex: 1; margin-top: 10px" />
         </div>
     </div>
 </template>
@@ -34,6 +37,7 @@
 <style lang="scss" scoped>
 .field-label {
     font-size: 14px;
+    margin-right: 10px;
 }
 .central-panel {
     display: flex;
