@@ -22,7 +22,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     /**
      * Наименование объекта
@@ -43,16 +43,6 @@ public class Project {
      */
     @Enumerated(value = EnumType.STRING)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @Column(name = "project_type")
     private ShipProjectTypeEnum projectType;
-
-    /**
-     * Установленный полный ресурс двигателя, ч
-     */
-    private Long engineResource;
-
-    /**
-     * Годовая норма, ч
-     */
-    private Long annualPassageRate;
-
 }

@@ -9,9 +9,10 @@ import ru.tvgtu.dutystatistics.web.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
- * Created by Danik
+ * Контроллер api аналитики по дежурствам
  */
 @RestController
 @RequestMapping(path = "dutyStatistics", produces = "application/json")
@@ -20,6 +21,35 @@ import java.util.List;
 public class DutyStatisticsController {
 
     private final DutyStatisticsService dutyStatisticsService;
+
+
+    /**
+     * Получить дежурные объекты
+     *
+     * @param startDate начало периода
+     * @param endDate   конец периожа
+     */
+    @GetMapping("/getDutyObjects")
+    public List<SurfacingStatisticDTO> getDutyObjects(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+        return dutyStatisticsService.getDutyObjects(startDate, endDate);
+    }
+
+
+    /**
+     * Получить маршруты за объект
+     *
+     * @param startDate начало периода
+     * @param endDate   конец периожа
+     */
+    @GetMapping("/getDutyObjectsRoutes")
+    public List<SurfacingStatisticDTO> getDutyObjectRoutes(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
+            @RequestParam UUID duty_object_id) {
+        return dutyStatisticsService.getDutyObjectRoutes(startDate, endDate, duty_object_id);
+    }
 
     /**
      * 1) График с количеством подклассов
