@@ -1,18 +1,14 @@
 <template>
-    <div id="app">
-        <div>{{ header }}</div>
-    </div>
+    <duty-statistics style="height: 100%" />
 </template>
 
 <script src="./App.ts" lang="ts"></script>
 
 <style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+body {
+    height: 100vh;
+    width: 100%;
+    font-family: arial, sans-serif !important;
+    margin: 0;
 }
 </style>
