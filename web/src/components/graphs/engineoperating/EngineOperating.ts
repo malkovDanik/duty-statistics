@@ -44,15 +44,19 @@ export default class EngineOperating extends Vue {
             ['Корабль 10', 6000],
             ['Корабль 11', 6000],
         ]);
-        this.chart = anychart.bar(data);
+        this.chart = anychart.bar();
         this.chart.container(this.containerId);
         this.chart.draw();
 
-        this.chart.tooltip().format(
-            (value: any): string | void => {
-                return `Наработка двигателя: ${value.value}`;
-            }
-        );
+        const seriesData1 = data.mapAs({ x: 0, value: 1 });
+        const series1 = this.chart.bar(seriesData1);
+        series1.name('Наработка двигателя');
+        series1.normal().fill('#1976d2', 0.8);
+        series1.hovered().fill('#1976d2', 0.8);
+        series1.selected().fill('#1976d2', 0.8);
+        series1.normal().stroke('#1976d2');
+        series1.hovered().stroke('#1976d2', 2);
+        series1.selected().stroke('#1976d2', 2);
 
         this.chart.xAxis().title('Список объектов');
         this.chart.yAxis().title('ч');
