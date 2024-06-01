@@ -35,12 +35,13 @@ public class Route {
     /**
      * Наработка полного технического ресурса двигателя, ч
      */
+    @Column(name = "operating_full_resource")
     private Long operatingFullResource;
 
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    @JoinColumn(name = "duty_id")
+    private Duty duty;
 
     /**
      * Дата начала маршрута

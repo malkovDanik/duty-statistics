@@ -1,15 +1,12 @@
 package ru.tvgtu.dutystatistics.model;
 
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.Type;
-
+import lombok.NonNull;
 
 import java.util.UUID;
 
@@ -28,12 +25,7 @@ public class DutyObject {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "duty_id")
-    private Duty duty;
-
-    @NotNull
+    @NonNull
     @OneToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
