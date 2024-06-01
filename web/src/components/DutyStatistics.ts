@@ -1,10 +1,12 @@
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import moment from 'moment';
 import { ElDatePicker } from 'element-ui/types/date-picker';
 import SectionTopPanel from '@/components/sectiontoppanel/SectionTopPanel';
 import ShipsTable from '@/components/shipstable/ShipsTable';
 import RouteTable from '@/components/routetable/RouteTable';
 import Graphs from '@/components/graphs/Graphs';
+import DutyStatisticsApi from '@/api/dutystatistics/DutyStatisticsApi';
+import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
 
 @Component({ components: { SectionTopPanel, ShipsTable, RouteTable, Graphs } })
 export default class DutyStatistics extends Vue {
@@ -54,4 +56,38 @@ export default class DutyStatistics extends Vue {
         ],
         firstDayOfWeek: 1, // чтобы Пн был началом неделе, а не Вск.
     };
+
+    private ships: SurfacingStatisticDTO[] = [];
+
+    private routes: any = [];
+
+    private selectedShip: SurfacingStatisticDTO | null = null;
+
+    @Watch('selectedShip')
+    private changeSelectedShip(): void {
+        DutyStatisticsApi.getDutyObjectsRoutes(
+            this.period[0],
+            this.period[1]
+        ).then(
+            (data: any[]): void => {
+                this.routes = data;
+            }
+        );
+    }
+
+    private mounted(): void {
+        this.getShips();
+    }
+
+    private getShips(): void {
+        DutyStatisticsApi.getDutyObjects(this.period[0], this.period[1]).then(
+            (data: SurfacingStatisticDTO[]): void => {
+                this.ships = data;
+            }
+        );
+    }
+
+    private selectShip(ship: SurfacingStatisticDTO): void {
+        this.selectedShip = ship;
+    }
 }

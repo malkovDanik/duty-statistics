@@ -21,8 +21,8 @@
                 </el-date-picker>
             </div>
             <div style="display: flex; flex: 1; margin-top: 10px">
-                <ships-table />
-                <route-table style="margin-left: 20px" />
+                <ships-table :ships="ships" @selectShip="selectShip" />
+                <route-table :selectedShip="selectedShip" style="margin-left: 20px" />
             </div>
             <graphs style="flex: 1; margin-top: 10px" />
         </div>

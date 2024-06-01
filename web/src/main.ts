@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import App from './App.vue';
-import 'niicps-vue-library/dist/niicps-vue-library.css';
 import ElementUI from 'element-ui';
 import lang from 'element-ui/lib/locale/lang/ru-RU';
 import locale from 'element-ui/lib/locale';

@@ -36,7 +36,6 @@
 ::v-deep {
     .el-table__header-wrapper th {
         font-size: 13px;
-        text-align: center;
     }
     .el-table .cell {
         word-break: break-word;
