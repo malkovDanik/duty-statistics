@@ -1,6 +1,9 @@
 <template>
     <el-card class="box-card">
-        <subclass-chart :chartData="subclassChart" />
+        <engine-operating />
+        <engine-resource-remaining />
+        <annual-norm-exceeding />
+        <total-norm-exceeding />
     </el-card>
 </template>
 
@@ -14,6 +17,7 @@
         .el-card__body {
             height: 100%;
             box-sizing: border-box;
+            display: flex;
         }
     }
 }

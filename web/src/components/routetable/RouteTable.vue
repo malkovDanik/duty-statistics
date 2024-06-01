@@ -23,7 +23,7 @@
 
 <style lang="scss" scoped>
 .box-card {
-    width: 40%;
+    width: 38%;
 }
 ::v-deep {
     .el-table__header-wrapper th {

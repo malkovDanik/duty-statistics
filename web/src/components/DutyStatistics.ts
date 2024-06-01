@@ -7,8 +7,18 @@ import RouteTable from '@/components/routetable/RouteTable';
 import Graphs from '@/components/graphs/Graphs';
 import DutyStatisticsApi from '@/api/dutystatistics/DutyStatisticsApi';
 import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
+import { SubClassCountStatisticDTO } from '@/models/SubClassCountStatisticDTO';
+import SubclassChart from '@/components/graphs/subclasschart/SubclassChart';
 
-@Component({ components: { SectionTopPanel, ShipsTable, RouteTable, Graphs } })
+@Component({
+    components: {
+        SectionTopPanel,
+        ShipsTable,
+        RouteTable,
+        SubclassChart,
+        Graphs,
+    },
+})
 export default class DutyStatistics extends Vue {
     /** Период дат */
     private period: Date[] = [
@@ -63,6 +73,8 @@ export default class DutyStatistics extends Vue {
 
     private selectedShip: SurfacingStatisticDTO | null = null;
 
+    private subclassChart: SubClassCountStatisticDTO[] = [];
+
     @Watch('selectedShip')
     private changeSelectedShip(): void {
         DutyStatisticsApi.getDutyObjectsRoutes(
@@ -77,6 +89,41 @@ export default class DutyStatistics extends Vue {
 
     private mounted(): void {
         this.getShips();
+        this.getSubClassCountStatistic();
+        setTimeout((): void => {
+            this.subclassChart = [
+                {
+                    subclassName: 'Подкласс1',
+                    subclassCount: 4,
+                    totalSubclassCount: 10,
+                    subclassPercent: 11,
+                },
+                {
+                    subclassName: 'Подкласс2',
+                    subclassCount: 46,
+                    totalSubclassCount: 36,
+                    subclassPercent: 28,
+                },
+                {
+                    subclassName: 'Подкласс3',
+                    subclassCount: 23,
+                    totalSubclassCount: 22,
+                    subclassPercent: 21,
+                },
+            ];
+        }, 0);
+    }
+
+    /** Получить график с количеством подклассов */
+    private getSubClassCountStatistic(): void {
+        DutyStatisticsApi.getSubClassCountStatistic(
+            this.period[0],
+            this.period[1]
+        ).then(
+            (data: SubClassCountStatisticDTO[]): void => {
+                this.subclassChart = data;
+            }
+        );
     }
 
     private getShips(): void {

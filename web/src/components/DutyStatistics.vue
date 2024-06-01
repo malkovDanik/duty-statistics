@@ -20,14 +20,15 @@
                 >
                 </el-date-picker>
             </div>
-            <div style="display: flex; flex: 1; margin-top: 10px">
+            <div style="display: flex; flex: 0.9; margin-top: 10px">
                 <ships-table :ships="ships" @selectShip="selectShip" />
                 <route-table
                     :selectedShip="selectedShip"
-                    style="margin-left: 20px"
+                    style="margin-left: 10px"
                 />
+                <subclass-chart :chartData="subclassChart"  style="margin-left: 10px" />
             </div>
-            <graphs :period="period" style="flex: 1; margin-top: 10px" />
+            <graphs :period="period" style="flex: 1.1; margin-top: 10px" />
         </div>
     </div>
 </template>

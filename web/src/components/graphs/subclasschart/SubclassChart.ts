@@ -91,7 +91,7 @@ export default class SubclassChart extends Vue {
         title.text(
             `<span style="font-size: 14px">${
                 this.header
-            }<br><span style="font-size: 13px">Всего: ${total}
+            }<br><span style="font-size: 13px">Общее количество подклассов: ${total}
 </span></span>`
         );
 
