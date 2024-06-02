@@ -1,8 +1,8 @@
 <template>
     <el-card class="box-card">
-        <el-table ref="routeTable" :data="route" style="width: 100%">
+        <el-table ref="routeTable" :data="routes" style="width: 100%">
             <el-table-column type="index" width="50"> </el-table-column>
-            <el-table-column property="startDate" label="Маршрут">
+            <el-table-column property="formatDate" label="Маршрут" width="150">
             </el-table-column>
             <el-table-column
                 property="operatingFullResource"
@@ -11,9 +11,15 @@
             </el-table-column>
             <el-table-column
                 property="length"
-                label="Длина, миль/км"
-                width="150"
+                label="Длина, км/миль"
+                width="200"
             >
+                <template slot-scope="scope">
+                    <span
+                        >{{ scope.row.length }} /
+                        {{ distanceToMiles(scope.row.length).toFixed(2) }}
+                    </span>
+                </template>
             </el-table-column>
         </el-table>
     </el-card>

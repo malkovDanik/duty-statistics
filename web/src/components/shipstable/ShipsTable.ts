@@ -1,5 +1,5 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
+import { DutyObjectDTO } from '@/models/DutyObjectDTO';
 import { ElTable } from 'element-ui/types/table';
 
 @Component
@@ -9,7 +9,7 @@ export default class ShipsTable extends Vue {
     };
 
     @Prop({ default: (): [] => [] })
-    private ships!: SurfacingStatisticDTO[];
+    private ships!: DutyObjectDTO[];
 
     @Watch('ships')
     private changeShips(): void {
