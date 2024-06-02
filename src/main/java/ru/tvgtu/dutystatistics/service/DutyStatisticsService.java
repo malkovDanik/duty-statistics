@@ -9,9 +9,9 @@ import java.util.UUID;
 public interface DutyStatisticsService {
     List<SubClassCountStatisticDTO> getSubClassCountStatistic(LocalDateTime startDate, LocalDateTime endDate);
 
-    List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime startDate, LocalDateTime endDate);
+    List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime endDate);
 
-    List<EngineOperatingDTO> getEngineOperating(LocalDateTime startDate, LocalDateTime endDate);
+    List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate);
 
     List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime startDate, LocalDateTime endDate);
 

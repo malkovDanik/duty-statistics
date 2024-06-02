@@ -31,16 +31,16 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
             " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
-            " WHERE vehicle.id IN :vehicleIds " +
+            " WHERE duty.endDate < :endDate " +
             "GROUP BY dutyObject.id ")
-    List<SurfacingStatisticDTO> getSurfacingStatistic(List<UUID> vehicleIds);
+    List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime endDate);
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineOperatingDTO(dutyObject.id, sum(route.operatingFullResource))" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
             " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
-            " WHERE vehicle.id IN :vehicleIds " +
+            " WHERE duty.endDate < :endDate " +
             "GROUP BY dutyObject.id ")
-    List<EngineOperatingDTO> getEngineOperating(List<UUID> vehicleIds);
+    List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate);
 }

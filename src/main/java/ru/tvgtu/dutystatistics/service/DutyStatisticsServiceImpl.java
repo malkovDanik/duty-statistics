@@ -54,27 +54,21 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
     }
 
     @Override
-    public List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
-            startDate = LocalDateTime.now().minusYears(1);
+    public List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime endDate) {
+        if (endDate == null) {
             endDate = LocalDateTime.now();
         }
 
-        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
-        List<UUID> vehicleIds = dutyObjects.stream().map(dutyObject -> dutyObject.getVehicle().getId()).toList();
-        return routeRepository.getSurfacingStatistic(vehicleIds);
+        return routeRepository.getSurfacingStatistic(endDate);
     }
 
     @Override
-    public List<EngineOperatingDTO> getEngineOperating(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
-            startDate = LocalDateTime.now().minusYears(1);
+    public List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate) {
+        if (endDate == null) {
             endDate = LocalDateTime.now();
         }
-        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
-        List<UUID> vehicleIds = dutyObjects.stream().map(dutyObject -> dutyObject.getVehicle().getId()).toList();
 
-        return routeRepository.getEngineOperating(vehicleIds);
+        return routeRepository.getEngineOperating(endDate);
     }
 
     @Override

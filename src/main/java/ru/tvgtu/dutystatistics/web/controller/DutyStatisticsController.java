@@ -75,7 +75,7 @@ public class DutyStatisticsController {
     public List<SurfacingStatisticDTO> getSurfacingStatistic(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return dutyStatisticsService.getSurfacingStatistic(startDate, endDate);
+        return dutyStatisticsService.getSurfacingStatistic(endDate);
     }
 
     /**
@@ -88,7 +88,7 @@ public class DutyStatisticsController {
     public List<EngineOperatingDTO> getEngineOperating(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return dutyStatisticsService.getEngineOperating(startDate, endDate);
+        return dutyStatisticsService.getEngineOperating(endDate);
     }
 
     /**
