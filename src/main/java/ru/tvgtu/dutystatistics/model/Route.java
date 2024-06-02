@@ -27,7 +27,7 @@ public class Route {
 
 
     /**
-     * Длина маршрута
+     * Длина маршрута, км
      */
     private Long length;
 

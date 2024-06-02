@@ -22,3 +22,13 @@ GET http://localhost:8081/dutyStatistics/engineResourceRemaining?startDate=&endD
 Accept: application/json
 
 ###
+
+GET http://localhost:8081/dutyStatistics/annualNormExceeding?startDate=&endDate=
+Accept: application/json
+
+###
+
+GET http://localhost:8081/dutyStatistics/totalNormExceeding?startDate=&endDate=
+Accept: application/json
+
+###

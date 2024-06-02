@@ -82,22 +82,20 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
 
     @Override
     public List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
-            startDate = LocalDateTime.now().minusYears(1);
+        if (endDate == null) {
             endDate = LocalDateTime.now();
         }
 
-        return null;
+        return routeRepository.getAnnualNormExceeding(endDate);
     }
 
     @Override
     public List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
-            startDate = LocalDateTime.now().minusYears(1);
+        if (endDate == null) {
             endDate = LocalDateTime.now();
         }
 
-        return null;
+        return routeRepository.getTotalNormExceeding(endDate);
     }
 
     /**

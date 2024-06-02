@@ -9,10 +9,10 @@ public class EngineResourceRemainingDTO {
     //Идентификатор дежурного объекта
     private UUID dutyObjectId;
     //    Значение наплаванности
-    private long EngineResourceRemaining;
+    private long engineResourceRemaining;
 
-    public EngineResourceRemainingDTO(UUID dutyObjectId, long EngineResourceRemaining) {
+    public EngineResourceRemainingDTO(UUID dutyObjectId, long engineResourceRemaining) {
         this.dutyObjectId = dutyObjectId;
-        this.EngineResourceRemaining = EngineResourceRemaining;
+        this.engineResourceRemaining = engineResourceRemaining;
     }
 }

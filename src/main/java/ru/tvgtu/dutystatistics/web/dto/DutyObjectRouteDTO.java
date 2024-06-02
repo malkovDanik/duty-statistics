@@ -12,7 +12,7 @@ public class DutyObjectRouteDTO {
     private UUID id;
 
     /**
-     * Длина маршрута
+     * Длина маршрута, км
      */
     private Long length;
 
