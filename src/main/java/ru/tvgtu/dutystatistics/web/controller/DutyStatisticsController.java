@@ -58,7 +58,6 @@ public class DutyStatisticsController {
      * @param endDate   конец периожа
      */
     @GetMapping("/subClassCount")
-//    todo - в каком виде присылают дату? можно конечно формат и свой задать, но вроде в кса и так работает DateTimeFormat(pattern = "dd.MM.yyyy")
     public List<SubClassCountStatisticDTO> getSubClassCountStatistic(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
@@ -101,7 +100,7 @@ public class DutyStatisticsController {
     public List<EngineResourceRemainingDTO> getEngineResourceRemaining(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return dutyStatisticsService.getEngineResourceRemaining(startDate, endDate);
+        return dutyStatisticsService.getEngineResourceRemaining(endDate);
     }
 
     /**

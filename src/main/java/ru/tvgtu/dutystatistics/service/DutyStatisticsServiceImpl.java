@@ -72,13 +72,12 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
     }
 
     @Override
-    public List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null && endDate == null) {
-            startDate = LocalDateTime.now().minusYears(1);
+    public List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate) {
+        if (endDate == null) {
             endDate = LocalDateTime.now();
         }
 
-        return null;
+        return routeRepository.getEngineResourceRemaining(endDate);
     }
 
     @Override

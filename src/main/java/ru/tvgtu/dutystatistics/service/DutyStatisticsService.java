@@ -13,7 +13,7 @@ public interface DutyStatisticsService {
 
     List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate);
 
-    List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime startDate, LocalDateTime endDate);
+    List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate);
 
     List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
 
