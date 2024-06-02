@@ -45,7 +45,7 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
 
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineResourceRemainingDTO(dutyObject.id," +
-            " vehicleTth.engineResource - sum(route.operatingFullResource))" +
+            " vehicleTth.engineResource - sum(route.operatingFullResource), vehicleTth.engineResource)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
@@ -57,7 +57,7 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
     List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate);
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.AnnualNormExceedingDTO(dutyObject.id," +
-            " (sum(route.operatingFullResource) - vehicleTth.annualPassageRate))" +
+            " (sum(route.operatingFullResource) - vehicleTth.annualPassageRate), vehicleTth.annualPassageRate)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
@@ -69,7 +69,7 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
     List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime endDate);
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.TotalNormExceedingDTO(dutyObject.id," +
-            " (sum(route.operatingFullResource) - vehicleTth.engineResource))" +
+            " (sum(route.operatingFullResource) - vehicleTth.engineResource),  vehicleTth.engineResource)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +

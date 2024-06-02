@@ -15,9 +15,9 @@ public interface DutyStatisticsService {
 
     List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate);
 
-    List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
+    List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime endDate);
 
-    List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
+    List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime endDate);
 
     List<DutyObjectDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate);
 

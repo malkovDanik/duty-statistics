@@ -67,12 +67,10 @@ public class DutyStatisticsController {
     /**
      * 2) График наплаванности
      *
-     * @param startDate начало периода
      * @param endDate   конец периожа
      */
     @GetMapping("/surfacing")
     public List<SurfacingStatisticDTO> getSurfacingStatistic(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return dutyStatisticsService.getSurfacingStatistic(endDate);
     }
@@ -80,12 +78,10 @@ public class DutyStatisticsController {
     /**
      * 3) График полной наработки двигателя
      *
-     * @param startDate начало периода
      * @param endDate   конец периожа
      */
     @GetMapping("/engineOperating")
     public List<EngineOperatingDTO> getEngineOperating(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return dutyStatisticsService.getEngineOperating(endDate);
     }
@@ -93,12 +89,10 @@ public class DutyStatisticsController {
     /**
      * 4) График остатка технического ресурса двигателя
      *
-     * @param startDate начало периода
      * @param endDate   конец периожа
      */
     @GetMapping("/engineResourceRemaining")
     public List<EngineResourceRemainingDTO> getEngineResourceRemaining(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return dutyStatisticsService.getEngineResourceRemaining(endDate);
     }
@@ -106,27 +100,23 @@ public class DutyStatisticsController {
     /**
      * 5) График превышения годовой нормы тех ресурса
      *
-     * @param startDate начало периода
      * @param endDate   конец периожа
      */
     @GetMapping("/annualNormExceeding")
     public List<AnnualNormExceedingDTO> getAnnualNormExceeding(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return dutyStatisticsService.getAnnualNormExceeding(startDate, endDate);
+        return dutyStatisticsService.getAnnualNormExceeding(endDate);
     }
 
     /**
      * 6) График превышения полной нормы тех ресурса
      *
-     * @param startDate начало периода
      * @param endDate   конец периожа
      */
     @GetMapping("/totalNormExceeding")
     public List<TotalNormExceedingDTO> getTotalNormExceeding(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return dutyStatisticsService.getTotalNormExceeding(startDate, endDate);
+        return dutyStatisticsService.getTotalNormExceeding(endDate);
     }
 
 }
