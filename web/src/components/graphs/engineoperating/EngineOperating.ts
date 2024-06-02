@@ -61,6 +61,8 @@ export default class EngineOperating extends Vue {
         this.chart.xAxis().title('Список объектов');
         this.chart.yAxis().title('ч');
 
+        this.chart.legend(true);
+
         const xLabels = this.chart.xAxis().labels();
         xLabels.wordWrap('break-word');
         xLabels.wordBreak('break-all');
