@@ -10,3 +10,13 @@ GET http://localhost:8081/dutyStatistics/getDutyObjectsRoutes?startDate=&endDate
 Accept: application/json
 
 ###
+
+###
+GET http://localhost:8081/dutyStatistics/surfacing?startDate=&endDate=
+Accept: application/json
+
+###
+GET http://localhost:8081/dutyStatistics/engineOperating?startDate=&endDate=
+Accept: application/json
+
+###

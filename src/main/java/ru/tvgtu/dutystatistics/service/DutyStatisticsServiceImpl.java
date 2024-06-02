@@ -60,7 +60,9 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
             endDate = LocalDateTime.now();
         }
 
-        return null;
+        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
+        List<UUID> vehicleIds = dutyObjects.stream().map(dutyObject -> dutyObject.getVehicle().getId()).toList();
+        return routeRepository.getSurfacingStatistic(vehicleIds);
     }
 
     @Override
@@ -69,8 +71,10 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
             startDate = LocalDateTime.now().minusYears(1);
             endDate = LocalDateTime.now();
         }
+        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
+        List<UUID> vehicleIds = dutyObjects.stream().map(dutyObject -> dutyObject.getVehicle().getId()).toList();
 
-        return null;
+        return routeRepository.getEngineOperating(vehicleIds);
     }
 
     @Override
@@ -125,8 +129,8 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
      * ПОлучить маршруты дежурного объекта
      *
      * @param dutyObjectId идентификатор дежурного объекта
-     * @param startDate начало периода выборки
-     * @param endDate окончание периода выборки
+     * @param startDate    начало периода выборки
+     * @param endDate      окончание периода выборки
      * @return
      */
     @Override

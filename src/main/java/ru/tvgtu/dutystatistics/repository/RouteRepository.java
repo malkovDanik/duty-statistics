@@ -3,6 +3,8 @@ package ru.tvgtu.dutystatistics.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.tvgtu.dutystatistics.model.Route;
+import ru.tvgtu.dutystatistics.web.dto.EngineOperatingDTO;
+import ru.tvgtu.dutystatistics.web.dto.SurfacingStatisticDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,4 +25,22 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
 //            начало дежурства в рамках периода
             " OR (duty.beginDate between :startDate AND :endDate)) ")
     List<Route> getRoutesByObjectIdAndPeriod(UUID dutyObjectId, LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.SurfacingStatisticDTO(dutyObject.id, sum(route.length))" +
+            "FROM Route route " +
+            " JOIN Duty duty ON duty.id = route.duty.id " +
+            " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
+            " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
+            " WHERE vehicle.id IN :vehicleIds " +
+            "GROUP BY dutyObject.id ")
+    List<SurfacingStatisticDTO> getSurfacingStatistic(List<UUID> vehicleIds);
+
+    @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineOperatingDTO(dutyObject.id, sum(route.operatingFullResource))" +
+            "FROM Route route " +
+            " JOIN Duty duty ON duty.id = route.duty.id " +
+            " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
+            " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
+            " WHERE vehicle.id IN :vehicleIds " +
+            "GROUP BY dutyObject.id ")
+    List<EngineOperatingDTO> getEngineOperating(List<UUID> vehicleIds);
 }
