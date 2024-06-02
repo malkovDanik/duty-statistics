@@ -11,7 +11,7 @@
             </el-table-column>
             <el-table-column
                 property="length"
-                label="Длинна, миль/км"
+                label="Длина, миль/км"
                 width="150"
             >
             </el-table-column>

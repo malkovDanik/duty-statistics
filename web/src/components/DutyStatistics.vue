@@ -19,6 +19,14 @@
                     :clearable="false"
                 >
                 </el-date-picker>
+                <div
+                    v-if="selectedShip"
+                    class="field-label"
+                    style="margin-left: 200px"
+                >
+                    <span>Наплаванность судна: </span>
+                    <span>400 ч</span>
+                </div>
             </div>
             <div style="display: flex; flex: 0.9; margin-top: 10px">
                 <ships-table :ships="ships" @selectShip="selectShip" />
@@ -26,7 +34,10 @@
                     :selectedShip="selectedShip"
                     style="margin-left: 10px"
                 />
-                <subclass-chart :chartData="subclassChart"  style="margin-left: 10px" />
+                <subclass-chart
+                    :chartData="subclassChart"
+                    style="margin-left: 10px"
+                />
             </div>
             <graphs :period="period" style="flex: 1.1; margin-top: 10px" />
         </div>
@@ -38,6 +49,7 @@
 <style lang="scss" scoped>
 .field-label {
     font-size: 14px;
+    color: #5b5b5b;
     margin-right: 10px;
 }
 .central-panel {
