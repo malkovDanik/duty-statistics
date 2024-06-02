@@ -30,7 +30,7 @@ public class DutyStatisticsController {
      * @param endDate   конец периожа
      */
     @GetMapping("/getDutyObjects")
-    public List<SurfacingStatisticDTO> getDutyObjects(
+    public List<DutyObjectDTO> getDutyObjects(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return dutyStatisticsService.getDutyObjects(startDate, endDate);
@@ -44,11 +44,11 @@ public class DutyStatisticsController {
      * @param endDate   конец периожа
      */
     @GetMapping("/getDutyObjectsRoutes")
-    public List<SurfacingStatisticDTO> getDutyObjectRoutes(
+    public List<DutyObjectRouteDTO> getDutyObjectRoutes(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
-            @RequestParam UUID duty_object_id) {
-        return dutyStatisticsService.getDutyObjectRoutes(startDate, endDate, duty_object_id);
+            @RequestParam UUID dutyObjectId) {
+        return dutyStatisticsService.getDutyObjectRoutes(dutyObjectId, startDate, endDate);
     }
 
     /**

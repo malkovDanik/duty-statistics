@@ -2,8 +2,8 @@ package ru.tvgtu.dutystatistics.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import ru.tvgtu.dutystatistics.model.DutyObject;
+import ru.tvgtu.dutystatistics.web.dto.DutyObjectDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +29,23 @@ public interface DutyStatisticsRepository extends JpaRepository<DutyObject, UUID
             "OR (duty.beginDate > :startDate AND duty.endDate < :endDate)" +
 //            начало дежурства в рамках периода
             "OR (duty.beginDate between :startDate AND :endDate))" )
-    List<DutyObject> getDutyObjectsByPeriod(@Param("startDate") LocalDateTime startDate,
-                                            @Param("endDate") LocalDateTime endDate);
+    List<DutyObject> getDutyObjectsByPeriod(LocalDateTime startDate,
+                                            LocalDateTime endDate);
+
+    /**
+     * Получить заполненные дежурные объекты
+     * @param dutyObjectIds идентификаторы дежурных объектов
+     * @return
+     */
+    @Query(" SELECT new ru.tvgtu.dutystatistics.web.dto.DutyObjectDTO(dutyObject.id, vehicle.name, " +
+            " vehicleTth.engineResource, vehicleTth.annualPassageRate) " +
+            " FROM DutyObject dutyObject " +
+            " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
+            " JOIN Project project ON project.id = vehicle.project.id " +
+            " JOIN VehicleTth vehicleTth ON vehicleTth.project.id = project.id " +
+            " WHERE dutyObject.id IN :dutyObjectIds " +
+            " ORDER BY vehicle.name ")
+    List<DutyObjectDTO> getDutyObjectsData(List<UUID> dutyObjectIds);
 
 //    @Query("")
 //    List<SubClassCountStatisticDTO> getSubClassCountStatistic(@Param("startDate") LocalDateTime startDate,

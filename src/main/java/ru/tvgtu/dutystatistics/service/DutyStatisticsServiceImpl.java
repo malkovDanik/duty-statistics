@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tvgtu.dutystatistics.model.DutyObject;
 import ru.tvgtu.dutystatistics.repository.DutyStatisticsRepository;
 import ru.tvgtu.dutystatistics.repository.ProjectRepository;
+import ru.tvgtu.dutystatistics.repository.RouteRepository;
 import ru.tvgtu.dutystatistics.web.dto.*;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
 
     private final DutyStatisticsRepository dutyStatisticsRepository;
     private final ProjectRepository projectRepository;
+    private final RouteRepository routeRepository;
 
     /**
      * Получить данные графика количественной оценки подклассов
@@ -101,13 +103,40 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         return null;
     }
 
+    /**
+     * Получить объекты дежурившие в рамках периода
+     *
+     * @param startDate дата начала периода выборки
+     * @param endDate   дата окончания периода выборки
+     */
     @Override
-    public List<SurfacingStatisticDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate) {
-        return null;
+    public List<DutyObjectDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate == null && endDate == null) {
+            startDate = LocalDateTime.now().minusYears(1);
+            endDate = LocalDateTime.now();
+        }
+//        Получить объекты дежурившие в рамках периода
+        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
+        List<UUID> dutyObjectIds = dutyObjects.stream().map(DutyObject::getId).toList();
+        return dutyStatisticsRepository.getDutyObjectsData(dutyObjectIds);
     }
 
+    /**
+     * ПОлучить маршруты дежурного объекта
+     *
+     * @param dutyObjectId идентификатор дежурного объекта
+     * @param startDate начало периода выборки
+     * @param endDate окончание периода выборки
+     * @return
+     */
     @Override
-    public List<SurfacingStatisticDTO> getDutyObjectRoutes(LocalDateTime startDate, LocalDateTime endDate, UUID dutyObjectId) {
-        return null;
+    public List<DutyObjectRouteDTO> getDutyObjectRoutes(UUID dutyObjectId, LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate == null && endDate == null) {
+            startDate = LocalDateTime.now().minusYears(1);
+            endDate = LocalDateTime.now();
+        }
+
+        var routes = routeRepository.getRoutesByObjectIdAndPeriod(dutyObjectId, startDate, endDate);
+        return routes.stream().map(DutyObjectRouteDTO::new).toList();
     }
 }

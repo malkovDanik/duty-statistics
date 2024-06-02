@@ -2,3 +2,11 @@ GET http://localhost:8081/dutyStatistics/subClassCount?startDate=&endDate=
 Accept: application/json
 
 ###
+GET http://localhost:8081/dutyStatistics/getDutyObjects?startDate=&endDate=
+Accept: application/json
+
+###
+GET http://localhost:8081/dutyStatistics/getDutyObjectsRoutes?startDate=&endDate=&dutyObjectId=59e048ae-baf6-4fed-8e68-abf412d0e46b
+Accept: application/json
+
+###

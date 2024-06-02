@@ -19,8 +19,8 @@ public interface DutyStatisticsService {
 
     List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime startDate, LocalDateTime endDate);
 
-    List<SurfacingStatisticDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate);
+    List<DutyObjectDTO> getDutyObjects(LocalDateTime startDate, LocalDateTime endDate);
 
-    List<SurfacingStatisticDTO> getDutyObjectRoutes(LocalDateTime startDate, LocalDateTime endDate, UUID dutyObjectId);
+    List<DutyObjectRouteDTO> getDutyObjectRoutes(UUID dutyObjectId, LocalDateTime startDate, LocalDateTime endDate);
 
 }
