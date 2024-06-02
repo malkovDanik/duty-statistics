@@ -1,4 +1,4 @@
-GET http://localhost:8081/dutyStatistics/subClassCount?startDate=2024-06-11T23:59:59&endDate=2024-06-11T23:59:59
+GET http://localhost:8081/dutyStatistics/subClassCount?startDate=&endDate=
 Accept: application/json
 
 ###

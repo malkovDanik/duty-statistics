@@ -18,14 +18,14 @@ public class SubClassCountStatisticDTO {
     /**
      * Реальное количество подклассов
      */
-    private int subclassCount;
+    private long subclassCount;
 
     /**
      * Общее количество подклассов
      */
     private int totalSubclassCount;
 
-    public SubClassCountStatisticDTO(String subclassName, int subclassCount) {
+    public SubClassCountStatisticDTO(String subclassName, long subclassCount) {
         this.subclassName = subclassName;
         this.subclassCount = subclassCount;
     }

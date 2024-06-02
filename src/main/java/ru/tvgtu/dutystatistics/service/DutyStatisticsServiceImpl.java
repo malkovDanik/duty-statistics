@@ -3,6 +3,7 @@ package ru.tvgtu.dutystatistics.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tvgtu.dutystatistics.model.DutyObject;
 import ru.tvgtu.dutystatistics.repository.DutyStatisticsRepository;
 import ru.tvgtu.dutystatistics.repository.ProjectRepository;
 import ru.tvgtu.dutystatistics.web.dto.*;
@@ -26,7 +27,7 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
      * Получить данные графика количественной оценки подклассов
      *
      * @param startDate начало периода выборки
-     * @param endDate окончание периода выборки
+     * @param endDate   окончание периода выборки
      * @return количественная оценка подклассов за дежурные объекты
      */
     @Override
@@ -35,14 +36,18 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
             startDate = LocalDateTime.now().minusYears(1);
             endDate = LocalDateTime.now();
         }
-//        Получить статистику подклассов и их количества за дежурные объекты
-        List<SubClassCountStatisticDTO> subclass_statistic = dutyStatisticsRepository.getSubClassCountStatistic(startDate, endDate);
-//        Получить общее количество подклассов за дежурные объекты
-        Integer totalSubclassCount = projectRepository.getDutyObjectSubclassCount(startDate, endDate);
 
-        return subclass_statistic.stream().peek(statistic -> {
+//        Получить корабли дежурившие в рамках периода
+        List<DutyObject> dutyObjects = dutyStatisticsRepository.getDutyObjectsByPeriod(startDate, endDate);
+        List<UUID> vehicleIds = dutyObjects.stream().map(dutyObject -> dutyObject.getVehicle().getId()).toList();
+//        Получить статистику подклассов по кораблям
+        List<SubClassCountStatisticDTO> subClassCountStatistic = projectRepository.getSubClassCountStatistic(vehicleIds);
+//        Получить общее количество подклассов за дежурные объекты
+        Integer totalSubclassCount = projectRepository.getDutyObjectSubclassCount(endDate);
+
+        return subClassCountStatistic.stream().peek(statistic -> {
             statistic.setTotalSubclassCount(totalSubclassCount);
-            statistic.setSubclassPercent(statistic.getSubclassCount() / totalSubclassCount);
+            statistic.setSubclassPercent((int) (statistic.getSubclassCount() * 100 / totalSubclassCount));
         }).toList();
     }
 

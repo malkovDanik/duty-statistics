@@ -60,8 +60,8 @@ public class DutyStatisticsController {
     @GetMapping("/subClassCount")
 //    todo - в каком виде присылают дату? можно конечно формат и свой задать, но вроде в кса и так работает DateTimeFormat(pattern = "dd.MM.yyyy")
     public List<SubClassCountStatisticDTO> getSubClassCountStatistic(
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime startDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime endDate) {
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return dutyStatisticsService.getSubClassCountStatistic(startDate, endDate);
     }
 

@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.tvgtu.dutystatistics.model.DutyObject;
-import ru.tvgtu.dutystatistics.web.dto.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,13 +11,26 @@ import java.util.UUID;
 
 public interface DutyStatisticsRepository extends JpaRepository<DutyObject, UUID> {
 
-    @Query("SELECT SubClassCountStatisticDTO(subclass.name, count(subclass)) " +
-            "FROM DutyObject dutyObject " +
-            "JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
-            "JOIN Project subclass ON subclass.id = vehicle.project.parent.id " +
-            "WHERE vehicle.startServiceDate between :startDate AND :endDate ")
-    List<SubClassCountStatisticDTO> getSubClassCountStatistic(@Param("startDate") LocalDateTime startDate,
-                                                              @Param("endDate") LocalDateTime endDate);
+    /**
+     * Получить корабли дежурившие в рамках периода
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @Query(" SELECT dutyObject  " +
+            " FROM DutyObject dutyObject " +
+            " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
+            " JOIN Duty duty ON duty.dutyObject.vehicle.id = vehicle.id " +
+            " WHERE vehicle.startServiceDate < :endDate " +
+//            корабли которые дежурили в течение указанного периода
+//            окончание дежурства в рамках периода
+            "AND ((duty.endDate between :startDate AND :endDate)  " +
+//            Само дежурство в рамках периода
+            "OR (duty.beginDate > :startDate AND duty.endDate < :endDate)" +
+//            начало дежурства в рамках периода
+            "OR (duty.beginDate between :startDate AND :endDate))" )
+    List<DutyObject> getDutyObjectsByPeriod(@Param("startDate") LocalDateTime startDate,
+                                            @Param("endDate") LocalDateTime endDate);
 
 //    @Query("")
 //    List<SubClassCountStatisticDTO> getSubClassCountStatistic(@Param("startDate") LocalDateTime startDate,
