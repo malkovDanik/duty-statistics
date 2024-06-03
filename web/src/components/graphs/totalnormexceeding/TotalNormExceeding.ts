@@ -61,6 +61,7 @@ export default class TotalNormExceeding extends Vue {
         series1.name(
             'Перерасход полного технического ресурса двигателя'
         );
+        series1.labels(true);
         series1.normal().fill('#1976d2', 0.8);
         series1.hovered().fill('#1976d2', 0.8);
         series1.selected().fill('#1976d2', 0.8);

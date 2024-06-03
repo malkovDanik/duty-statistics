@@ -61,6 +61,7 @@ export default class EngineResourceRemaining extends Vue {
 
         const series1 = this.chart.bar(seriesData1);
         series1.name('Остаток полного технического ресурса двигателя');
+        series1.labels(true);
         series1.normal().fill('#1976d2', 0.8);
         series1.hovered().fill('#1976d2', 0.8);
         series1.selected().fill('#1976d2', 0.8);
@@ -70,6 +71,7 @@ export default class EngineResourceRemaining extends Vue {
 
         const series2 = this.chart.bar(seriesData2);
         series2.name('Полный технический ресурс двигателя');
+        series2.labels(true);
         series2.normal().fill('#ef6c00', 0.8);
         series2.hovered().fill('#ef6c00', 0.8);
         series2.selected().fill('#ef6c00', 0.8);
@@ -83,7 +85,7 @@ export default class EngineResourceRemaining extends Vue {
         this.chart.legend(true);
         this.chart.legend().itemsLayout("vertical");
 
-        this.chart.barsPadding(0);
+        this.chart.barsPadding(0.5);
         this.chart.barGroupsPadding(2);
 
         const xLabels = this.chart.xAxis().labels();
