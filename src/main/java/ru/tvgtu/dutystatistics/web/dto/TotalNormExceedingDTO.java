@@ -16,6 +16,11 @@ public class TotalNormExceedingDTO {
     private UUID dutyObjectId;
 
     /**
+     * Наименование дежурного объекта
+     */
+    private String dutyObjectName;
+
+    /**
      * Значение наплаванности
      */
     private long totalNormExceeding;
@@ -25,9 +30,10 @@ public class TotalNormExceedingDTO {
      */
     private long totalEngineResource;
 
-    public TotalNormExceedingDTO(UUID dutyObjectId, long totalNormExceeding, long totalEngineResource) {
+    public TotalNormExceedingDTO(UUID dutyObjectId, long totalNormExceeding, long totalEngineResource, String dutyObjectName) {
         this.dutyObjectId = dutyObjectId;
         this.totalNormExceeding = totalNormExceeding;
         this.totalEngineResource = totalEngineResource;
+        this.dutyObjectName = dutyObjectName;
     }
 }

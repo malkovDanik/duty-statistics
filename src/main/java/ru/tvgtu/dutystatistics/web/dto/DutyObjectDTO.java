@@ -24,10 +24,16 @@ public class DutyObjectDTO {
      */
     private Long annualPassageRate;
 
-    public DutyObjectDTO(UUID id, String name, Long engineResource, Long annualPassageRate) {
+    /**
+     * Наименование подкласса
+     */
+    private String subclassName;
+
+    public DutyObjectDTO(UUID id, String name, Long engineResource, Long annualPassageRate, String subclassName) {
         this.id = id;
         this.name = name;
         this.engineResource = engineResource;
         this.annualPassageRate = annualPassageRate;
+        this.subclassName = subclassName;
     }
 }

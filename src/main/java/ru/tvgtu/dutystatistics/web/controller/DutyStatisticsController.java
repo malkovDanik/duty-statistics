@@ -65,7 +65,7 @@ public class DutyStatisticsController {
     }
 
     /**
-     * 2) График наплаванности
+     * 2) Получить значение наплаванности
      *
      * @param endDate   конец периожа
      */

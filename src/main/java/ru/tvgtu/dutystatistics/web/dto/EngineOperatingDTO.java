@@ -4,15 +4,30 @@ import lombok.Data;
 
 import java.util.UUID;
 
+/**
+ * Дто данных расчета полной наработки двигателя
+ */
 @Data
 public class EngineOperatingDTO {
-    //Идентификатор дежурного объекта
+
+    /**
+     * Идентификатор дежурного объекта
+     */
     private UUID dutyObjectId;
-    //    Значение наплаванности
+
+    /**
+     * Наименование дежурного объекта
+     */
+    private String dutyObjectName;
+
+    /**
+     *  Значение наплаванности
+     */
     private long operatingFullResource;
 
-    public EngineOperatingDTO(UUID dutyObjectId, long operatingFullResource) {
+    public EngineOperatingDTO(UUID dutyObjectId, long operatingFullResource, String dutyObjectName) {
         this.dutyObjectId = dutyObjectId;
         this.operatingFullResource = operatingFullResource;
+        this.dutyObjectName = dutyObjectName;
     }
 }

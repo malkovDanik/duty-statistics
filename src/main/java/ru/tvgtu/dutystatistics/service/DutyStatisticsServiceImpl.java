@@ -53,6 +53,11 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         }).toList();
     }
 
+    /**
+     * 2) Получить значение наплаванности
+     *
+     * @param endDate   конец периожа
+     */
     @Override
     public List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime endDate) {
         if (endDate == null) {
@@ -62,6 +67,11 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         return routeRepository.getSurfacingStatistic(endDate);
     }
 
+    /**
+     * 3) График полной наработки двигателя
+     *
+     * @param endDate   конец периожа
+     */
     @Override
     public List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate) {
         if (endDate == null) {
@@ -71,6 +81,11 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         return routeRepository.getEngineOperating(endDate);
     }
 
+    /**
+     * 4) График остатка технического ресурса двигателя
+     *
+     * @param endDate   конец периожа
+     */
     @Override
     public List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate) {
         if (endDate == null) {
@@ -80,6 +95,11 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         return routeRepository.getEngineResourceRemaining(endDate);
     }
 
+    /**
+     * 5) График превышения годовой нормы тех ресурса
+     *
+     * @param endDate   конец периожа
+     */
     @Override
     public List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime endDate) {
         if (endDate == null) {
@@ -89,6 +109,11 @@ public class DutyStatisticsServiceImpl implements DutyStatisticsService {
         return routeRepository.getAnnualNormExceeding(endDate);
     }
 
+    /**
+     * 6) График превышения полной нормы тех ресурса
+     *
+     * @param endDate   конец периожа
+     */
     @Override
     public List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime endDate) {
         if (endDate == null) {

@@ -34,18 +34,19 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
             "GROUP BY dutyObject.id ")
     List<SurfacingStatisticDTO> getSurfacingStatistic(LocalDateTime endDate);
 
-    @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineOperatingDTO(dutyObject.id, sum(route.operatingFullResource))" +
+    @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineOperatingDTO(dutyObject.id, sum(route.operatingFullResource)," +
+            " vehicle.name)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
             " JOIN Vehicle vehicle ON vehicle.id = dutyObject.vehicle.id " +
             " WHERE duty.endDate < :endDate " +
-            "GROUP BY dutyObject.id ")
+            "GROUP BY dutyObject.id, vehicle.name ")
     List<EngineOperatingDTO> getEngineOperating(LocalDateTime endDate);
 
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.EngineResourceRemainingDTO(dutyObject.id," +
-            " vehicleTth.engineResource - sum(route.operatingFullResource), vehicleTth.engineResource)" +
+            " vehicleTth.engineResource - sum(route.operatingFullResource), vehicleTth.engineResource, vehicle.name)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
@@ -53,11 +54,11 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
             " JOIN Project project ON project.id = vehicle.project.id " +
             " JOIN VehicleTth vehicleTth ON vehicleTth.project.id = project.id " +
             " WHERE duty.endDate < :endDate " +
-            "GROUP BY dutyObject.id , vehicleTth.engineResource ")
+            "GROUP BY dutyObject.id , vehicleTth.engineResource, vehicle.name ")
     List<EngineResourceRemainingDTO> getEngineResourceRemaining(LocalDateTime endDate);
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.AnnualNormExceedingDTO(dutyObject.id," +
-            " (sum(route.operatingFullResource) - vehicleTth.annualPassageRate), vehicleTth.annualPassageRate)" +
+            " (sum(route.operatingFullResource) - vehicleTth.annualPassageRate), vehicleTth.annualPassageRate, vehicle.name)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
@@ -65,11 +66,11 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
             " JOIN Project project ON project.id = vehicle.project.id " +
             " JOIN VehicleTth vehicleTth ON vehicleTth.project.id = project.id " +
             " WHERE duty.endDate < :endDate " +
-            "GROUP BY dutyObject.id , vehicleTth.annualPassageRate ")
+            "GROUP BY dutyObject.id , vehicleTth.annualPassageRate, vehicle.name ")
     List<AnnualNormExceedingDTO> getAnnualNormExceeding(LocalDateTime endDate);
 
     @Query("SELECT new ru.tvgtu.dutystatistics.web.dto.TotalNormExceedingDTO(dutyObject.id," +
-            " (sum(route.operatingFullResource) - vehicleTth.engineResource),  vehicleTth.engineResource)" +
+            " (sum(route.operatingFullResource) - vehicleTth.engineResource),  vehicleTth.engineResource, vehicle.name)" +
             "FROM Route route " +
             " JOIN Duty duty ON duty.id = route.duty.id " +
             " JOIN DutyObject dutyObject ON dutyObject.id = duty.dutyObject.id " +
@@ -77,6 +78,6 @@ public interface RouteRepository extends JpaRepository<Route, UUID> {
             " JOIN Project project ON project.id = vehicle.project.id " +
             " JOIN VehicleTth vehicleTth ON vehicleTth.project.id = project.id " +
             " WHERE duty.endDate < :endDate " +
-            "GROUP BY dutyObject.id , vehicleTth.engineResource ")
+            "GROUP BY dutyObject.id , vehicleTth.engineResource, vehicle.name ")
     List<TotalNormExceedingDTO> getTotalNormExceeding(LocalDateTime endDate);
 }
