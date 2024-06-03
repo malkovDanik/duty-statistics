@@ -10,7 +10,7 @@
             <el-table-column type="index" width="50"> </el-table-column>
             <el-table-column property="name" label="Наименование">
             </el-table-column>
-            <el-table-column property="subclass" label="Подкласс">
+            <el-table-column property="subclassName" label="Подкласс">
             </el-table-column>
             <el-table-column
                 property="engineResource"
