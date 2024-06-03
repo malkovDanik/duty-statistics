@@ -56,6 +56,8 @@ export default class AnnualNormExceeding extends Vue {
         this.chart.container(this.containerId);
         this.chart.draw();
 
+        this.chart.yScale().minimum(0);
+
         const seriesData1 = data.mapAs({ x: 0, value: 1 });
         const seriesData2 = data.mapAs({ x: 0, value: 2 });
 
@@ -64,6 +66,7 @@ export default class AnnualNormExceeding extends Vue {
             'Перерасход наработки технического\nресурса годовой нормы двигателя'
         );
         series1.labels(true);
+        series1.labels().fontColor('#000');
         series1.normal().fill('#1976d2', 0.8);
         series1.hovered().fill('#1976d2', 0.8);
         series1.selected().fill('#1976d2', 0.8);
@@ -74,6 +77,7 @@ export default class AnnualNormExceeding extends Vue {
         const series2 = this.chart.bar(seriesData2);
         series2.name('Годовая норма технического ресурса двигателя');
         series2.labels(true);
+        series2.labels().fontColor('#000');
         series2.normal().fill('#ef6c00', 0.8);
         series2.hovered().fill('#ef6c00', 0.8);
         series2.selected().fill('#ef6c00', 0.8);

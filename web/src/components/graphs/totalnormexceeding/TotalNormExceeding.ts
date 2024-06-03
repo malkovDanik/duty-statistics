@@ -55,6 +55,8 @@ export default class TotalNormExceeding extends Vue {
         this.chart.container(this.containerId);
         this.chart.draw();
 
+        this.chart.yScale().minimum(0);
+
         const seriesData1 = data.mapAs({ x: 0, value: 1 });
 
         const series1 = this.chart.bar(seriesData1);
@@ -62,6 +64,7 @@ export default class TotalNormExceeding extends Vue {
             'Перерасход полного технического ресурса двигателя'
         );
         series1.labels(true);
+        series1.labels().fontColor('#000');
         series1.normal().fill('#1976d2', 0.8);
         series1.hovered().fill('#1976d2', 0.8);
         series1.selected().fill('#1976d2', 0.8);
