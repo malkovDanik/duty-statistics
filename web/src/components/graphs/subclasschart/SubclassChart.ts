@@ -15,12 +15,12 @@ export default class SubclassChart extends Vue {
 
     /** Цветовая палитра */
     private palette = [
+        '#851cf5',
         '#64b5f6',
-        '#1976d2',
-        '#ef6c00',
         '#ffa000',
         '#cd5dec',
-        '#851cf5',
+        '#1976d2',
+        '#ef6c00',
     ];
 
     /** Возрастные группы */
@@ -82,16 +82,12 @@ export default class SubclassChart extends Vue {
         title.enabled(true);
         title.useHtml(true);
         title.hAlign('center');
-        let total = 0;
-        this.chartData.forEach(
-            (item: SubClassCountStatisticDTO): void => {
-                total = total + item.totalSubclassCount;
-            }
-        );
         title.text(
             `<span style="font-size: 14px">${
                 this.header
-            }<br><span style="font-size: 13px">Общее количество подклассов: ${total}
+            }<br><span style="font-size: 13px">Всего: ${
+                this.chartData[0].totalSubclassCount
+            }
 </span></span>`
         );
 

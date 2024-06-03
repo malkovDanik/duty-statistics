@@ -25,13 +25,14 @@
                     style="margin-left: 200px"
                 >
                     <span>Наплаванность судна: </span>
-                    <span>400 ч</span>
+                    <span>{{ swimming }}</span>
                 </div>
             </div>
             <div style="display: flex; flex: 0.9; margin-top: 10px">
                 <ships-table :ships="ships" @selectShip="selectShip" />
                 <route-table
                     :selectedShip="selectedShip"
+                    :routes="routes"
                     style="margin-left: 10px"
                 />
                 <subclass-chart
@@ -58,5 +59,14 @@
     box-sizing: border-box;
     height: calc(100% - 40px);
     padding: 7px;
+}
+::v-deep {
+    .el-table .cell {
+        line-height: 24px;
+        font-size: 13px;
+    }
+    .el-table td {
+        padding: 0;
+    }
 }
 </style>

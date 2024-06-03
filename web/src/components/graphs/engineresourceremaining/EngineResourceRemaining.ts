@@ -72,6 +72,8 @@ export default class EngineResourceRemaining extends Vue {
         this.chart.xAxis().title('Список объектов');
         this.chart.yAxis().title('ч');
 
+        this.chart.legend(true);
+
         this.chart.barsPadding(0);
         this.chart.barGroupsPadding(2);
 

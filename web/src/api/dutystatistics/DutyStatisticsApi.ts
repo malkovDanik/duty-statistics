@@ -1,9 +1,10 @@
 import { AxiosResponse } from 'axios';
 import { AbstractApi } from '@/api/AbstractApi';
 import { dataToArrayClass } from '@/api/ClassFactory';
-import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
+import { DutyObjectDTO } from '@/models/DutyObjectDTO';
 import RequestUrl from '@/api/requestUrl';
 import { SubClassCountStatisticDTO } from '@/models/SubClassCountStatisticDTO';
+import { DutyObjectRouteDTO } from '@/models/DutyObjectRouteDTO';
 
 @RequestUrl('dutyStatistics')
 class DutyStatisticsApi extends AbstractApi {
@@ -15,15 +16,15 @@ class DutyStatisticsApi extends AbstractApi {
     public getDutyObjects(
         startDate: Date,
         endDate: Date
-    ): Promise<SurfacingStatisticDTO[]> {
+    ): Promise<DutyObjectDTO[]> {
         return this.get('/getDutyObjects', {
             params: {
                 startDate,
                 endDate,
             },
         }).then(
-            (response: AxiosResponse): SurfacingStatisticDTO[] =>
-                dataToArrayClass(SurfacingStatisticDTO, response.data)
+            (response: AxiosResponse): DutyObjectDTO[] =>
+                dataToArrayClass(DutyObjectDTO, response.data)
         );
     }
 
@@ -34,16 +35,18 @@ class DutyStatisticsApi extends AbstractApi {
      */
     public getDutyObjectsRoutes(
         startDate: Date,
-        endDate: Date
-    ): Promise<SurfacingStatisticDTO[]> {
+        endDate: Date,
+        dutyObjectId: string
+    ): Promise<DutyObjectRouteDTO[]> {
         return this.get('/getDutyObjectsRoutes', {
             params: {
                 startDate,
                 endDate,
+                dutyObjectId,
             },
         }).then(
-            (response: AxiosResponse): SurfacingStatisticDTO[] =>
-                dataToArrayClass(SurfacingStatisticDTO, response.data)
+            (response: AxiosResponse): DutyObjectRouteDTO[] =>
+                dataToArrayClass(DutyObjectRouteDTO, response.data)
         );
     }
 

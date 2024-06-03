@@ -6,9 +6,10 @@ import ShipsTable from '@/components/shipstable/ShipsTable';
 import RouteTable from '@/components/routetable/RouteTable';
 import Graphs from '@/components/graphs/Graphs';
 import DutyStatisticsApi from '@/api/dutystatistics/DutyStatisticsApi';
-import { SurfacingStatisticDTO } from '@/models/SurfacingStatisticDTO';
+import { DutyObjectDTO } from '@/models/DutyObjectDTO';
 import { SubClassCountStatisticDTO } from '@/models/SubClassCountStatisticDTO';
 import SubclassChart from '@/components/graphs/subclasschart/SubclassChart';
+import { DutyObjectRouteDTO } from '@/models/DutyObjectRouteDTO';
 
 @Component({
     components: {
@@ -67,24 +68,40 @@ export default class DutyStatistics extends Vue {
         firstDayOfWeek: 1, // чтобы Пн был началом неделе, а не Вск.
     };
 
-    private ships: SurfacingStatisticDTO[] = [];
+    private ships: DutyObjectDTO[] = [];
 
-    private routes: any = [];
+    private routes: DutyObjectRouteDTO[] = [];
 
-    private selectedShip: SurfacingStatisticDTO | null = null;
+    private selectedShip: DutyObjectDTO | null = null;
 
     private subclassChart: SubClassCountStatisticDTO[] = [];
 
     @Watch('selectedShip')
     private changeSelectedShip(): void {
-        DutyStatisticsApi.getDutyObjectsRoutes(
-            this.period[0],
-            this.period[1]
-        ).then(
-            (data: any[]): void => {
-                this.routes = data;
+        if (this.selectedShip)
+            DutyStatisticsApi.getDutyObjectsRoutes(
+                this.period[0],
+                this.period[1],
+                this.selectedShip.id
+            ).then(
+                (data: DutyObjectRouteDTO[]): void => {
+                    this.routes = data;
+                }
+            );
+    }
+
+    private get swimming(): string {
+        let total = 0;
+        this.routes.forEach(
+            (item: DutyObjectRouteDTO): void => {
+                total = total + (item.length ? item.length : 0);
             }
         );
+        return `${total} км / ${this.distanceToMiles(total).toFixed(2)} миль`;
+    }
+
+    public distanceToMiles(distanceInKilometer: number): number {
+        return distanceInKilometer * 0.539957;
     }
 
     private mounted(): void {
@@ -128,13 +145,13 @@ export default class DutyStatistics extends Vue {
 
     private getShips(): void {
         DutyStatisticsApi.getDutyObjects(this.period[0], this.period[1]).then(
-            (data: SurfacingStatisticDTO[]): void => {
+            (data: DutyObjectDTO[]): void => {
                 this.ships = data;
             }
         );
     }
 
-    private selectShip(ship: SurfacingStatisticDTO): void {
+    private selectShip(ship: DutyObjectDTO): void {
         this.selectedShip = ship;
     }
 }
