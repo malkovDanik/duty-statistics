@@ -1,7 +1,7 @@
 <template>
     <div class="chart-container">
         <span style="font-size: 13px; color: #303133;"
-            >Остаток (перерасход) полного технического ресурса двигателя
+            >Перерасход полного технического ресурса двигателя
         </span>
         <div :id="containerId" class="chart"></div>
     </div>

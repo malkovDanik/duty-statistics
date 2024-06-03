@@ -1,7 +1,7 @@
 <template>
     <div class="chart-container">
         <span style="font-size: 13px; color: #303133;"
-            >Остаток (перерасход) наработки технического ресурса годовой нормы
+            >Перерасход наработки технического ресурса годовой нормы
             двигателя</span
         >
         <div :id="containerId" class="chart"></div>

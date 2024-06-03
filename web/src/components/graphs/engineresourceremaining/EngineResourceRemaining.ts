@@ -20,10 +20,19 @@ export default class EngineResourceRemaining extends Vue {
     }
 
     private get items(): [string, number, number][] {
-        return this.chartData.map(
+        return this.chartData.sort(
+            (a: EngineResourceRemainingDTO, b: EngineResourceRemainingDTO) => {
+                return (a.dutyObjectName
+                        ? a.dutyObjectName
+                        : ''
+                ).localeCompare(
+                    b.dutyObjectName ? b.dutyObjectName : ''
+                );
+            }
+        ).map(
             (item: EngineResourceRemainingDTO): [string, number, number] => [
                 item.dutyObjectName,
-                item.engineResourceRemaining,
+                item.engineResourceRemaining > 0 ? item.engineResourceRemaining : 0,
                 item.totalEngineResource,
             ]
         );
@@ -72,6 +81,7 @@ export default class EngineResourceRemaining extends Vue {
         this.chart.yAxis().title('ч');
 
         this.chart.legend(true);
+        this.chart.legend().itemsLayout("vertical");
 
         this.chart.barsPadding(0);
         this.chart.barGroupsPadding(2);

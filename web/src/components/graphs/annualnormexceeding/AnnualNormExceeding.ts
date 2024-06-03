@@ -20,10 +20,19 @@ export default class AnnualNormExceeding extends Vue {
     }
 
     private get items(): [string, number, number][] {
-        return this.chartData.map(
+        return this.chartData.sort(
+            (a: AnnualNormExceedingDTO, b: AnnualNormExceedingDTO) => {
+                return (a.dutyObjectName
+                        ? a.dutyObjectName
+                        : ''
+                ).localeCompare(
+                    b.dutyObjectName ? b.dutyObjectName : ''
+                );
+            }
+        ).map(
             (item: AnnualNormExceedingDTO): [string, number, number] => [
                 item.dutyObjectName,
-                item.annualNormExceeding,
+                item.annualNormExceeding > 0 ? item.annualNormExceeding : 0,
                 item.annualPassageRate,
             ]
         );
@@ -52,7 +61,7 @@ export default class AnnualNormExceeding extends Vue {
 
         const series1 = this.chart.bar(seriesData1);
         series1.name(
-            'Остаток (перерасход) наработки технического\nресурса годовой нормы двигателя'
+            'Перерасход наработки технического\nресурса годовой нормы двигателя'
         );
         series1.normal().fill('#1976d2', 0.8);
         series1.hovered().fill('#1976d2', 0.8);
@@ -74,6 +83,7 @@ export default class AnnualNormExceeding extends Vue {
         this.chart.yAxis().title('ч');
 
         this.chart.legend(true);
+        this.chart.legend().itemsLayout("vertical");
 
         this.chart.barsPadding(0);
         this.chart.barGroupsPadding(2);

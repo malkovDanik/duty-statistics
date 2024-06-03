@@ -31,7 +31,16 @@ export default class EngineOperating extends Vue {
     }
 
     private get items(): [string, number][] {
-        return this.chartData.map(
+        return this.chartData.sort(
+            (a: EngineOperatingDTO, b: EngineOperatingDTO) => {
+                return (a.dutyObjectName
+                        ? a.dutyObjectName
+                        : ''
+                ).localeCompare(
+                    b.dutyObjectName ? b.dutyObjectName : ''
+                );
+            }
+        ).map(
             (item: EngineOperatingDTO): [string, number] => [
                 item.dutyObjectName,
                 item.operatingFullResource,
@@ -60,6 +69,7 @@ export default class EngineOperating extends Vue {
         this.chart.yAxis().title('ч');
 
         this.chart.legend(true);
+        this.chart.legend().itemsLayout("vertical");
 
         const xLabels = this.chart.xAxis().labels();
         xLabels.wordWrap('break-word');
