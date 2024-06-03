@@ -29,7 +29,7 @@
                     <span>{{ swimming }}</span>
                 </div>
             </div>
-            <div style="display: flex; flex: 0.9; margin-top: 10px">
+            <div style="display: flex; flex: 0.8; margin-top: 10px">
                 <ships-table :ships="ships" @selectShip="selectShip" />
                 <route-table
                     :selectedShip="selectedShip"
@@ -41,7 +41,7 @@
                     style="margin-left: 10px"
                 />
             </div>
-            <graphs :period="period" style="flex: 1.1; margin-top: 10px" />
+            <graphs :period="period" style="flex: 1.2; margin-top: 10px" />
         </div>
     </div>
 </template>
