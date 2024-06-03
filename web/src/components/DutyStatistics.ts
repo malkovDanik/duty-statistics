@@ -107,28 +107,11 @@ export default class DutyStatistics extends Vue {
     private mounted(): void {
         this.getShips();
         this.getSubClassCountStatistic();
-        setTimeout((): void => {
-            this.subclassChart = [
-                {
-                    subclassName: 'Подкласс1',
-                    subclassCount: 4,
-                    totalSubclassCount: 10,
-                    subclassPercent: 11,
-                },
-                {
-                    subclassName: 'Подкласс2',
-                    subclassCount: 46,
-                    totalSubclassCount: 36,
-                    subclassPercent: 28,
-                },
-                {
-                    subclassName: 'Подкласс3',
-                    subclassCount: 23,
-                    totalSubclassCount: 22,
-                    subclassPercent: 21,
-                },
-            ];
-        }, 0);
+    }
+
+    private changePeriod(): void {
+        this.getShips();
+        this.getSubClassCountStatistic();
     }
 
     /** Получить график с количеством подклассов */

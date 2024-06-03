@@ -1,9 +1,9 @@
 <template>
     <el-card class="box-card">
-        <engine-operating />
-        <engine-resource-remaining />
-        <annual-norm-exceeding />
-        <total-norm-exceeding />
+        <engine-operating :chart-data="engineOperating" />
+        <engine-resource-remaining :chart-data="engineResourceRemaining" />
+        <annual-norm-exceeding :chart-data="annualNormExceeding" />
+        <total-norm-exceeding :chart-data="totalNormExceeding" />
     </el-card>
 </template>
 

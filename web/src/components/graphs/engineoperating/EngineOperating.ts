@@ -1,12 +1,13 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import Vue from 'vue';
 import anychart from 'anychart';
+import { EngineOperatingDTO } from '@/models/EngineOperatingDTO';
 
 @Component
 export default class EngineOperating extends Vue {
     /** Данные для графика */
-    @Prop({ default: [] })
-    private chartData!: any[];
+    @Prop({ default: (): [] => [] })
+    private chartData!: EngineOperatingDTO[];
 
     /** График */
     private chart: any = null;
@@ -29,21 +30,18 @@ export default class EngineOperating extends Vue {
         this.updateChartData();
     }
 
+    private get items(): [string, number][] {
+        return this.chartData.map(
+            (item: EngineOperatingDTO): [string, number] => [
+                item.dutyObjectName,
+                item.operatingFullResource,
+            ]
+        );
+    }
+
     /** Обновить графики */
     private updateChartData(): void {
-        const data = anychart.data.set([
-            ['Корабль 1', 120],
-            ['Корабль 2', 200],
-            ['Корабль 3', 1000],
-            ['Корабль 4', 6500],
-            ['Корабль 5', 6000],
-            ['Корабль 6', 120],
-            ['Корабль 7', 200],
-            ['Корабль 8', 1000],
-            ['Корабль 9', 6500],
-            ['Корабль 10', 6000],
-            ['Корабль 11', 6000],
-        ]);
+        const data = anychart.data.set(this.items);
         this.chart = anychart.bar();
         this.chart.container(this.containerId);
         this.chart.draw();

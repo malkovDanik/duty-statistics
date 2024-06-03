@@ -17,6 +17,7 @@
                     size="mini"
                     :picker-options="pickerOptions"
                     :clearable="false"
+                    @change="changePeriod"
                 >
                 </el-date-picker>
                 <div
@@ -67,6 +68,9 @@
     }
     .el-table td {
         padding: 0;
+    }
+    .el-card__body {
+        padding: 5px 10px;
     }
 }
 </style>

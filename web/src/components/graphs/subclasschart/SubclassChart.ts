@@ -10,7 +10,7 @@ export default class SubclassChart extends Vue {
     private header!: string;
 
     /** Данные для графика */
-    @Prop({ default: [] })
+    @Prop({ default: (): [] => [] })
     private chartData!: SubClassCountStatisticDTO[];
 
     /** Цветовая палитра */

@@ -1,12 +1,14 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import Vue from 'vue';
 import anychart from 'anychart';
+import { TotalNormExceedingDTO } from '@/models/TotalNormExceedingDTO';
+import { AnnualNormExceedingDTO } from '@/models/AnnualNormExceedingDTO';
 
 @Component
 export default class TotalNormExceeding extends Vue {
     /** Данные для графика */
     @Prop({ default: [] })
-    private chartData!: any[];
+    private chartData!: TotalNormExceedingDTO[];
 
     /** График */
     private chart: any = null;
@@ -16,6 +18,16 @@ export default class TotalNormExceeding extends Vue {
 
     private mounted(): void {
         this.updateChartData();
+    }
+
+    private get items(): [string, number, number][] {
+        return this.chartData.map(
+            (item: TotalNormExceedingDTO): [string, number, number] => [
+                item.dutyObjectName,
+                item.totalNormExceeding,
+                item.totalEngineResource,
+            ]
+        );
     }
 
     /**
@@ -31,19 +43,7 @@ export default class TotalNormExceeding extends Vue {
 
     /** Обновить графики */
     private updateChartData(): void {
-        const data = anychart.data.set([
-            ['Корабль 1', 120, 200],
-            ['Корабль 2', 200, 300],
-            ['Корабль 3', 1000, 500],
-            ['Корабль 4', 6500, 3000],
-            ['Корабль 5', 6000, 7000],
-            ['Корабль 6', 120, 500],
-            ['Корабль 7', 200, 800],
-            ['Корабль 8', 1000, 900],
-            ['Корабль 9', 6500, 6000],
-            ['Корабль 10', 6000, 6500],
-            ['Корабль 11', 6000, 4000],
-        ]);
+        const data = anychart.data.set(this.items);
         this.chart = anychart.bar();
         this.chart.container(this.containerId);
         this.chart.draw();
