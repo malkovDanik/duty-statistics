@@ -1,0 +1,145 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Duty {
+  + getId(): UUID
+  + getBeginDate(): LocalDateTime
+  + getEndDate(): LocalDateTime
+  + getDutyObject(): DutyObject
+  + setId(UUID): void
+  + setBeginDate(LocalDateTime): void
+  + setEndDate(LocalDateTime): void
+  + setDutyObject(DutyObject): void
+  + toString(): String
+}
+class DutyObject {
+  + getId(): UUID
+  + getVehicle(): Vehicle
+  + setId(UUID): void
+  + setVehicle(Vehicle): void
+  + toString(): String
+}
+class DutyStatisticsApplication {
+  + main(String[]): void
+}
+class DutyStatisticsApplicationTests {
+  ~ contextLoads(): void
+}
+class DutyStatisticsController {
+  + getDutyObjects(LocalDateTime, LocalDateTime): List<DutyObjectDTO>
+  + getTotalNormExceeding(LocalDateTime): List<TotalNormExceedingDTO>
+  + getSurfacingStatistic(LocalDateTime): List<SurfacingStatisticDTO>
+  + getDutyObjectRoutes(LocalDateTime, LocalDateTime, UUID): List<DutyObjectRouteDTO>
+  + getSubClassCountStatistic(LocalDateTime, LocalDateTime): List<SubClassCountStatisticDTO>
+  + getEngineOperating(LocalDateTime): List<EngineOperatingDTO>
+  + getAnnualNormExceeding(LocalDateTime): List<AnnualNormExceedingDTO>
+  + getEngineResourceRemaining(LocalDateTime): List<EngineResourceRemainingDTO>
+}
+interface DutyStatisticsRepository << interface >> {
+  + getDutyObjectsData(List<UUID>): List<DutyObjectDTO>
+  + getDutyObjectsByPeriod(LocalDateTime, LocalDateTime): List<DutyObject>
+}
+interface DutyStatisticsService << interface >> {
+  + getSurfacingStatistic(LocalDateTime): List<SurfacingStatisticDTO>
+  + getSubClassCountStatistic(LocalDateTime, LocalDateTime): List<SubClassCountStatisticDTO>
+  + getEngineOperating(LocalDateTime): List<EngineOperatingDTO>
+  + getAnnualNormExceeding(LocalDateTime): List<AnnualNormExceedingDTO>
+  + getTotalNormExceeding(LocalDateTime): List<TotalNormExceedingDTO>
+  + getDutyObjects(LocalDateTime, LocalDateTime): List<DutyObjectDTO>
+  + getEngineResourceRemaining(LocalDateTime): List<EngineResourceRemainingDTO>
+  + getDutyObjectRoutes(UUID, LocalDateTime, LocalDateTime): List<DutyObjectRouteDTO>
+}
+class DutyStatisticsServiceImpl {
+  + getSurfacingStatistic(LocalDateTime): List<SurfacingStatisticDTO>
+  + getEngineResourceRemaining(LocalDateTime): List<EngineResourceRemainingDTO>
+  + getDutyObjectRoutes(UUID, LocalDateTime, LocalDateTime): List<DutyObjectRouteDTO>
+  + getSubClassCountStatistic(LocalDateTime, LocalDateTime): List<SubClassCountStatisticDTO>
+  + getAnnualNormExceeding(LocalDateTime): List<AnnualNormExceedingDTO>
+  + getTotalNormExceeding(LocalDateTime): List<TotalNormExceedingDTO>
+  + getDutyObjects(LocalDateTime, LocalDateTime): List<DutyObjectDTO>
+  + getEngineOperating(LocalDateTime): List<EngineOperatingDTO>
+}
+class Project {
+  + getId(): UUID
+  + getName(): String
+  + getParent(): Project
+  + getCode(): String
+  + getProjectType(): ShipProjectTypeEnum
+  + setId(UUID): void
+  + setName(String): void
+  + setParent(Project): void
+  + setCode(String): void
+  + toString(): String
+  + setProjectType(ShipProjectTypeEnum): void
+}
+interface ProjectRepository << interface >> {
+  + getDutyObjectSubclassCount(LocalDateTime): Integer
+  + getSubClassCountStatistic(List<UUID>): List<SubClassCountStatisticDTO>
+}
+class Route {
+  + getLength(): Long
+  + setStartDate(LocalDateTime): void
+  + toString(): String
+  + getId(): UUID
+  + getOperatingFullResource(): Long
+  + getDuty(): Duty
+  + getStartDate(): LocalDateTime
+  + getEndDate(): LocalDateTime
+  + setEndDate(LocalDateTime): void
+  + setId(UUID): void
+  + setLength(Long): void
+  + setOperatingFullResource(Long): void
+  + setDuty(Duty): void
+}
+interface RouteRepository << interface >> {
+  + getSurfacingStatistic(LocalDateTime): List<SurfacingStatisticDTO>
+  + getEngineOperating(LocalDateTime): List<EngineOperatingDTO>
+  + getAnnualNormExceeding(LocalDateTime): List<AnnualNormExceedingDTO>
+  + getTotalNormExceeding(LocalDateTime): List<TotalNormExceedingDTO>
+  + getRoutesByObjectIdAndPeriod(UUID, LocalDateTime, LocalDateTime): List<Route>
+  + getEngineResourceRemaining(LocalDateTime): List<EngineResourceRemainingDTO>
+}
+enum ShipProjectTypeEnum << enumeration >> {
+  + getName(): String
+  + valueOf(String): ShipProjectTypeEnum
+  + values(): ShipProjectTypeEnum[]
+}
+class Vehicle {
+  + getId(): UUID
+  + getName(): String
+  + getProject(): Project
+  + getStartServiceDate(): LocalDateTime
+  + setId(UUID): void
+  + setName(String): void
+  + setProject(Project): void
+  + setStartServiceDate(LocalDateTime): void
+  + toString(): String
+}
+class VehicleTth {
+  + getId(): UUID
+  + getEngineResource(): Long
+  + getAnnualPassageRate(): Long
+  + getProject(): Project
+  + setId(UUID): void
+  + setEngineResource(Long): void
+  + setAnnualPassageRate(Long): void
+  + setProject(Project): void
+  + toString(): String
+}
+class node3 as "package  ru.tvgtu.dutystatistics.web.dto" << package >>
+
+Duty                           "1" *-[#595959,plain]-> "dutyObject\n1" DutyObject                     
+DutyObject                     "1" *-[#595959,plain]-> "vehicle\n1" Vehicle                        
+DutyStatisticsController       "1" *-[#595959,plain]-> "dutyStatisticsService\n1" DutyStatisticsService          
+DutyStatisticsServiceImpl      "1" *-[#595959,plain]-> "dutyStatisticsRepository\n1" DutyStatisticsRepository       
+DutyStatisticsServiceImpl       -[#008200,dashed]-^  DutyStatisticsService          
+DutyStatisticsServiceImpl      "1" *-[#595959,plain]-> "projectRepository\n1" ProjectRepository              
+DutyStatisticsServiceImpl      "1" *-[#595959,plain]-> "routeRepository\n1" RouteRepository                
+Project                        "1" *-[#595959,plain]-> "projectType\n1" ShipProjectTypeEnum            
+Route                          "1" *-[#595959,plain]-> "duty\n1" Duty                           
+Vehicle                        "1" *-[#595959,plain]-> "project\n1" Project                        
+VehicleTth                     "1" *-[#595959,plain]-> "project\n1" Project                        
+@enduml

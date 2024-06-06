@@ -1,0 +1,59 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Duty {
+  - dutyObject: DutyObject
+  - id: UUID
+  - beginDate: LocalDateTime
+  - endDate: LocalDateTime
+}
+class DutyObject {
+  - vehicle: Vehicle
+  - id: UUID
+}
+class Project {
+  - parent: Project
+  - code: String
+  - name: String
+  - id: UUID
+  - projectType: ShipProjectTypeEnum
+}
+class Route {
+  - length: Long
+  - startDate: LocalDateTime
+  - operatingFullResource: Long
+  - endDate: LocalDateTime
+  - duty: Duty
+  - id: UUID
+}
+enum ShipProjectTypeEnum << enumeration >> {
+  + GROUP: 
+  + PROJECT: 
+  + CLASS: 
+  + SUB_CLASS: 
+  + SUB_SUB_CLASS: 
+  - name: String
+}
+class Vehicle {
+  - project: Project
+  - id: UUID
+  # name: String
+  - startServiceDate: LocalDateTime
+}
+class VehicleTth {
+  - id: UUID
+  - annualPassageRate: Long
+  - project: Project
+  - engineResource: Long
+}
+
+Duty                "1" *-[#595959,plain]-> "dutyObject\n1" DutyObject          
+DutyObject          "1" *-[#595959,plain]-> "vehicle\n1" Vehicle             
+Project             "1" *-[#595959,plain]-> "projectType\n1" ShipProjectTypeEnum 
+Route               "1" *-[#595959,plain]-> "duty\n1" Duty                
+Vehicle             "1" *-[#595959,plain]-> "project\n1" Project             
+VehicleTth          "1" *-[#595959,plain]-> "project\n1" Project             
+@enduml
