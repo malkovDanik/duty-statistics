@@ -13,6 +13,7 @@ public interface DutyStatisticsRepository extends JpaRepository<DutyObject, UUID
 
     /**
      * Получить корабли дежурившие в рамках периода
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -28,12 +29,12 @@ public interface DutyStatisticsRepository extends JpaRepository<DutyObject, UUID
 //            Само дежурство в рамках периода
             "OR (duty.beginDate > :startDate AND duty.endDate < :endDate)" +
 //            начало дежурства в рамках периода
-            "OR (duty.beginDate between :startDate AND :endDate))" )
-    List<DutyObject> getDutyObjectsByPeriod(LocalDateTime startDate,
-                                            LocalDateTime endDate);
+            "OR (duty.beginDate between :startDate AND :endDate))")
+    List<DutyObject> getDutyObjectsByPeriod(LocalDateTime startDate, LocalDateTime endDate);
 
     /**
      * Получить заполненные дежурные объекты
+     *
      * @param dutyObjectIds идентификаторы дежурных объектов
      * @return
      */
