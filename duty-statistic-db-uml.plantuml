@@ -1,0 +1,51 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class node2 as "duty  /* Дежурства */" {
+   begin_date  /* Дата начала дежурства */: timestamp with time zone
+   end_date  /* Дата окончания дежурства */: timestamp with time zone
+   duty_object_id  /* Дежурный объект */: uuid
+   id  /* Идентификатор дежурства */: uuid
+}
+class node1 as "duty_object  /* Дежурные объекты */" {
+   vehicle_id  /* Транспотрное средство */: uuid
+   id: uuid
+}
+class node3 as "project  /* Проекты транспортного средства */" {
+   name  /* Наименование проекта */: varchar
+   parent_id  /* Родительская запись проекта */: uuid
+   code  /* Код проекта */: varchar
+   project_type  /* Позиция в иерархии */: varchar
+   id  /* Идентификатор проекта */: uuid
+}
+class node4 as "route  /* Маршруты */" {
+   length  /* Длина маршрута */: bigint
+   operating_full_resource  /* Наработка полного технического ресурса двигателя, ч */: bigint
+   start_date  /* Дата начала прохождения маршрута */: timestamp with time zone
+   end_date  /* Дата окончания прохождения маршрута */: timestamp with time zone
+   duty_id  /* Дежурство */: uuid
+   id  /* Идентификатор маршрута */: uuid
+}
+class node5 as "vehicle  /* Транспорные средства */" {
+   name  /* Наименование транспортного средства */: varchar
+   start_service_date  /* Дата начала эксплуатации */: timestamp with time zone
+   project_id  /* Проект транспортного средства */: uuid
+   id  /* Идентификатор транспортного средства */: uuid
+}
+class node0 as "vehicle_tth  /* ТТХ транспортных средств */" {
+   project_id  /* Проект транспортного средства */: uuid
+   engine_resource  /* Установленный полный ресурс двигателя, ч */: bigint
+   annual_passage_rate  /* Годовая норма, ч */: bigint
+   id  /* Идентификатор ТТХ средства */: uuid
+}
+
+node2  -[#595959,plain]-^  node1 : "duty_object_id:id"
+node1  -[#595959,plain]-^  node5 : "vehicle_id:id"
+node3  -[#595959,plain]-^  node3 : "parent_id:id"
+node4  -[#595959,plain]-^  node2 : "duty_id:id"
+node5  -[#595959,plain]-^  node3 : "project_id:id"
+node0  -[#595959,plain]-^  node3 : "project_id:id"
+@enduml
